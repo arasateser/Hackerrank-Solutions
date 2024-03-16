@@ -7,5 +7,14 @@ WHERE wp.is_evil = 0 and w.coins_needed = (
     WHERE w1.power = w.power and wp1.age = wp.age) 
 ORDER BY w.power desc, wp.age desc
 
+/*If you could not understand what problem wants: 
+They do not want to SHOW some of the wands if there is a cheaper verison of a wand with the same power and age
+That is why we need to second SELECT statement inside of our WHERE CLAUSE*/
 
+/*FIRST WHERE CLAUSE:
+The condition wp.is_evil = 0 filters the rows where the wand is not marked as evil.
+The condition w.coins_needed = (SELECT MIN(coins_needed) ...) filters the rows where the coins needed 
+to purchase the wand (w.coins_needed) are equal to the minimum coins needed among wands with the same power and age.
 
+The subquery (SELECT MIN(coins_needed) ...) calculates the minimum coins needed among wands with the same power and 
+age. It correlates the subquery with the outer query by matching w1.power = w.power and wp1.age = wp.age.*/
